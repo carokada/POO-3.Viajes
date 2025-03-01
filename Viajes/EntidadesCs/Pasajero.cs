@@ -17,14 +17,12 @@ namespace EntidadesCs
       {
          Dni = dni;
          FechaNacimiento = fechaNacimiento;
-         //Tutor = null; // el tutor null en constructor llama al procedimiento y tira error. bien implementado como default ??
       }
 
       public Pasajero(uint dni, string nombre, string domicilio, DateTime fechaNacimiento, uint pasaporte) : this(dni, nombre, domicilio, fechaNacimiento)
       {
          Pasaporte = pasaporte;
       }
-
 
       public Pasajero Tutor
       {

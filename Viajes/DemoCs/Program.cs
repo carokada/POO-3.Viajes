@@ -49,24 +49,24 @@ namespace DemoCs
          hotel3.Habitaciones = 2;
          hotel4.Habitaciones = 3;
          Console.WriteLine("\n hoteles cargados:");
-         Console.WriteLine(hotel1 + $"\n precio final: US$D {hotel1.PrecioDolar}.~ (AR$ {hotel1.PrecioPesos})");
-         Console.WriteLine(hotel2 + $"\n precio final: US$D {hotel2.PrecioDolar}.~ (AR$ {hotel2.PrecioPesos})");
-         Console.WriteLine(hotel3 + $"\n precio final: US$D {hotel3.PrecioDolar}.~ (AR$ {hotel3.PrecioPesos})");
-         Console.WriteLine(hotel4 + $"\n precio final: US$D {hotel4.PrecioDolar}.~ (AR$ {hotel4.PrecioPesos})");
+         Console.WriteLine(hotel1 + $"\n\t precio final: US$D {hotel1.PrecioDolar}.~ (AR$ {hotel1.PrecioPesos}) \n");
+         Console.WriteLine(hotel2 + $"\n\t precio final: US$D {hotel2.PrecioDolar}.~ (AR$ {hotel2.PrecioPesos}) \n");
+         Console.WriteLine(hotel3 + $"\n\t precio final: US$D {hotel3.PrecioDolar}.~ (AR$ {hotel3.PrecioPesos}) \n");
+         Console.WriteLine(hotel4 + $"\n\t precio final: US$D {hotel4.PrecioDolar}.~ (AR$ {hotel4.PrecioPesos}) \n");
 
-         Console.WriteLine("\n" + divisor);
+         Console.WriteLine(divisor);
          Console.WriteLine(" creando pasajes...");
          Pasaje pasaje1 = new Pasaje("Via Bariloche", new DateTime(2025, 3, 14), 150, 4, ciudad2, ciudad1);
          Pasaje pasaje2 = new Pasaje("Rio Uruguay", new DateTime(2025, 3, 14), 180, 1, ciudad1, ciudad2);
          Pasaje pasaje3 = new Pasaje("Expreso Singer", new DateTime(2025, 3, 14), 200, 4, ciudad2, ciudad3);
          Pasaje pasaje4 = new Pasaje("Aerolineas Argentinas", new DateTime(2025, 3, 14), 350, 4, ciudad1, ciudad4);
          Console.WriteLine(" \n pasajes cargados:");
-         Console.WriteLine(pasaje1 + $"\n precio final: US$D {pasaje1.PrecioDolar}.~ (AR$ {pasaje1.PrecioPesos})");
-         Console.WriteLine(pasaje2 + $"\n precio final: US$D {pasaje2.PrecioDolar}.~ (AR$ {pasaje2.PrecioPesos})");
-         Console.WriteLine(pasaje3 + $"\n precio final: US$D {pasaje3.PrecioDolar}.~ (AR$ {pasaje3.PrecioPesos})");
-         Console.WriteLine(pasaje4 + $"\n precio final: US$D {pasaje4.PrecioDolar}.~ (AR$ {pasaje4.PrecioPesos})");
+         Console.WriteLine(pasaje1 + $"\n\t precio final: US$D {pasaje1.PrecioDolar}.~ (AR$ {pasaje1.PrecioPesos}) \n");
+         Console.WriteLine(pasaje2 + $"\n\t precio final: US$D {pasaje2.PrecioDolar}.~ (AR$ {pasaje2.PrecioPesos}) \n");
+         Console.WriteLine(pasaje3 + $"\n\t precio final: US$D {pasaje3.PrecioDolar}.~ (AR$ {pasaje3.PrecioPesos}) \n");
+         Console.WriteLine(pasaje4 + $"\n\t precio final: US$D {pasaje4.PrecioDolar}.~ (AR$ {pasaje4.PrecioPesos}) \n");
 
-         Console.WriteLine("\n" + divisor);
+         Console.WriteLine(divisor);
          Console.WriteLine(" creando paquetes...");
          Paquete paquete1 = new Paquete("BsAs 5 noches", new DateTime(2025, 3, 14), new DateTime(2025, 3, 19));
          Paquete paquete2 = new Paquete("Pdas 3 noches", new DateTime(2025, 3, 14), new DateTime(2025, 3, 17));
@@ -87,7 +87,7 @@ namespace DemoCs
          MostrarPaquete(paquete3);
          MostrarPaquete(paquete4);
 
-         Console.WriteLine("\n" + divisor);
+         Console.WriteLine(divisor);
          Console.WriteLine(" creando cliente/pasajero...");
          Cliente clientePasajero1 = new ClientePasajero("12345678912", 25169962, "Daniel Gomez", "Sta Fe 256", new DateTime(1995, 6, 19));
          Cliente clientePasajero2 = new ClientePasajero("12345678913", 29345187, "Raquel Portillo", "Cordoba 1224", new DateTime(1993, 10, 20));
@@ -122,22 +122,37 @@ namespace DemoCs
          Console.WriteLine(pasajero2 + $" (mayor: {pasajero2.IsMayorEdad()})");
          Console.WriteLine(pasajero3 + $" (mayor: {pasajero3.IsMayorEdad()})");
          Console.WriteLine(pasajero4 + $" (mayor: {pasajero4.IsMayorEdad()})");
+         Console.WriteLine("\n cargando tutores...");
+         pasajero3.Tutor = pasajero1;
+         pasajero4.Tutor = pasajero1;
+         try
+         {
+            pasajero1.Tutor = pasajero1;
+         }
+         catch (Exception e)
+         {
+            Console.WriteLine($" !! error: {e.Message}");
+         }
+         Console.WriteLine("\n tutores cargados:");
+         Console.WriteLine($" tutor de {pasajero3.Nombre}: {pasajero3.Tutor}");
+         Console.WriteLine($" tutor de {pasajero4.Nombre}: {pasajero4.Tutor}");
 
          Console.WriteLine("\n" + divisor);
          Console.WriteLine(" creando ventas...");
          Venta venta1 = new Venta(DateTime.Today, cliente1);
          Venta venta2 = new Venta(DateTime.Today, cliente2);
-         Console.WriteLine("\n ventas cargadas");
+         Console.WriteLine("\n ventas cargadas:");
          Console.WriteLine(venta1);
          Console.WriteLine(venta2);
          Console.WriteLine("\n cargando servicios en ventas");
-         //venta1.AddServicio((IServicio) paquete1); // no se puede convertir de Paquete a Iservicio
-         //venta2.AddServicio((IServicio) paquete4);
-
-
+         venta1.AddServicio(paquete1);
+         venta2.AddServicio(paquete4);
+         Console.WriteLine("\n ventas con totales:");
+         Console.WriteLine(venta1);
+         Console.WriteLine(venta2);
+         Console.WriteLine();
 
          //Console.WriteLine("");
-         //Console.WriteLine();
          Console.WriteLine(divisor);
          Console.WriteLine("\n presione una tecla para salir ");
          Console.ReadKey();
@@ -145,21 +160,11 @@ namespace DemoCs
 
       private static void MostrarPaquete(Paquete paquete)
       {
-         Console.WriteLine($" servicios en paquete {paquete.Descripcion}");
+         Console.WriteLine($" -> servicios en paquete {paquete.Descripcion}");
          foreach (var servicio in paquete.GetAllServicios())
-            Console.WriteLine($" - {servicio}");
-         Console.WriteLine($" precio final: U$D {paquete.PrecioDolar} (AR$ {paquete.PrecioPesos})");
+            Console.WriteLine($"\t - {servicio}");
+         Console.WriteLine($"\t -> precio final: U$D {paquete.PrecioDolar} (AR$ {paquete.PrecioPesos})");
          Console.WriteLine();
       }
    }
 }
-
-
-         //try
-         //{
-
-         //}
-         //catch (Exception e)
-         //{
-         //   Console.WriteLine($" !! error: {e.Message}");
-         //}

@@ -8,12 +8,11 @@ namespace EntidadesCs
    {
       // ICotizacion
       public decimal PrecioPesos { get => PrecioDolar * CotizacionDolarPesos; }
-      public decimal PrecioDolar { get; }
+      public decimal PrecioDolar { get => PrecioTotal(); }
 
       private Cliente cliente; // asoc bidireccional cliente (1 venta 1 cliente)
-      // relacion venta servicio multiple o simple ?? 
-      //public IServicio Servicio { get; set; } // asoc (simple ?) servicio
-      private List<IServicio> servicios; // asoc multiple servicios
+
+      private List<IServicio> servicios; // asoc multiple servicios (1 venta muchos servicios)
       private List<Pasajero> pasajeros; // asoc multiple a pasajero o a IPasajero ?? 
 
       public static decimal CotizacionDolarPesos { get; set; }
@@ -86,7 +85,7 @@ namespace EntidadesCs
 
       public override string ToString()
       {
-         return $" venta: \n\t cliente: {cliente.Nombre} \n\t fecha: {Fecha.ToString("dd/MM/yy")} \n\t precio total: $ ";
+         return $" venta: cliente: {cliente.Nombre} \n\t fecha: {Fecha.ToString("dd/MM/yy")} \n\t precio total: ${PrecioDolar} ";
       }
    }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EntidadesCs
 {
-   public class Paquete
+   public class Paquete : IServicio, ICotizacion
    {
       private List<IServicio> servicios; // asoc multiple IServicios
 
@@ -17,8 +17,8 @@ namespace EntidadesCs
       public DateTime FechaInicial { get; set; }
 
       public DateTime FechaFinal { get; set; }
-      public ushort NumeroDias { get => CalcularDias(); } // calcular dias con fecha final ??
-      public ushort NumeroPasajeros { get; } // sale de asientos de pasaje ?? si no tiene pasaje ??
+      public ushort NumeroDias { get => CalcularDias(); }
+      public ushort NumeroPasajeros { get; } // sale de asientos de pasaje ?? si no tiene pasaje ?? 
 
       public Paquete(string descripcion, DateTime fechaInicial, DateTime fechaFinal)
       {
@@ -61,7 +61,7 @@ namespace EntidadesCs
          decimal total = 0;
          foreach (ICotizacion cotizacion in servicios)
          {
-            total += cotizacion.PrecioDolar;  // casting a icotizacion aca para acceder a los precios
+            total += cotizacion.PrecioDolar;  // casting a ICotizacion para poder acceder a los precios
          }
          return total;
       }
